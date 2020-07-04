@@ -27,7 +27,7 @@ class Sketchpad {
      *                     that will be shaded
      */
     Sketchpad(const vec2& top_left_corner, size_t num_pixels_per_side,
-              double sketchpad_size, double brush_radius = 1.5);
+              double sketchpad_size, double brush_radius = 1.15);
 
     /**
      * Displays the current state of the sketchpad in the Cinder application.
