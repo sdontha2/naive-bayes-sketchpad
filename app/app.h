@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>  // allows us to use stringstream
+
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -19,8 +21,9 @@ class NaiveBayesApp : public ci::app::App {
     NaiveBayesApp();
 
     void draw() override;
-    void mouseDown(ci::app::MouseEvent mouseEvent) override;
-    void mouseDrag(ci::app::MouseEvent mouseEvent) override;
+    void mouseDown(ci::app::MouseEvent event) override;
+    void mouseDrag(ci::app::MouseEvent event) override;
+    void keyDown(ci::app::KeyEvent event) override;
 
     const double kWindowSize = 900;
     const double kMargin = 100;
@@ -28,6 +31,7 @@ class NaiveBayesApp : public ci::app::App {
 
    private:
     Sketchpad sketchpad_;
+    size_t current_prediction_ = 0;
 };
 
 }  // namespace visualizer

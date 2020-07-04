@@ -24,21 +24,41 @@ void NaiveBayesApp::draw() {
 
     sketchpad_.Draw();
 
-    ci::gl::drawStringCentered("Press Delete to clear the sketchpad",
-                               glm::vec2(kWindowSize / 2, kMargin / 2),
-                               ci::Color("black"), fonts::roboto);
+    ci::gl::drawStringCentered(
+        "Press Delete to clear the sketchpad. Press Enter to make a prediction.",
+        glm::vec2(kWindowSize / 2, kMargin / 2),
+        ci::Color("black"), fonts::roboto);
 
-    ci::gl::drawStringCentered("Prediction: 0",
-                               glm::vec2(kWindowSize / 2, kWindowSize - kMargin / 2),
-                               ci::Color("blue"), fonts::courier_new);
+    ci::gl::drawStringCentered(
+        "Prediction: " + std::to_string(current_prediction_),
+        glm::vec2(kWindowSize / 2, kWindowSize - kMargin / 2),
+        ci::Color("blue"), fonts::courier_new);
 }
 
-void NaiveBayesApp::mouseDown(ci::app::MouseEvent mouseEvent) {
-    sketchpad_.HandleBrush(mouseEvent.getPos());
+void NaiveBayesApp::mouseDown(ci::app::MouseEvent event) {
+    sketchpad_.HandleBrush(event.getPos());
 }
 
-void NaiveBayesApp::mouseDrag(ci::app::MouseEvent mouseEvent) {
-    sketchpad_.HandleBrush(mouseEvent.getPos());
+void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
+    sketchpad_.HandleBrush(event.getPos());
+}
+
+void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
+    if (event.getCode() == ci::app::KeyEvent::KEY_RETURN) {
+        // This will print the current content of the sketchpad to the console.
+        // std::cout << sketchpad_ << std::endl;
+        
+        // std::stringstream inherits from both std::ostream AND std::istream
+        // (C++ supports multiple inheritance),
+        // so it can receive output from the sketchpad and feed that
+        // data as input to your Naive Bayes code!
+        
+        std::stringstream sketchpad_content;
+        sketchpad_content << sketchpad_;
+        // sketchpad_content >> **insert your naive bayes module here**;
+
+        // update current_prediction_
+    }
 }
 
 void prepareSettings(NaiveBayesApp::Settings* settings) {
