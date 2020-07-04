@@ -42,6 +42,15 @@ class Sketchpad {
      */
     void HandleBrush(const vec2& brush_screen_coords);
 
+    /**
+     * Outputs the current state of the sketchpad to an ostream.
+     * The output will contain num_pixel_per_size_ rows, and each of
+     * those rows will contain num_pixel_per_size_ characters.
+     * A space represents an unshaded pixel, and a '#' represents a shaded pixel.
+     * ('+' will not be used.)
+     */
+    friend std::ostream& operator<<(std::ostream& output, const Sketchpad& sketchpad);
+
    private:
     vec2 top_left_corner_;
 

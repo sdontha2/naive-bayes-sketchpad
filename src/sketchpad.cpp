@@ -23,7 +23,7 @@ void Sketchpad::Draw() const {
             }
 
             vec2 pixel_top_left = top_left_corner_ +
-                                  vec2(row * pixel_side_length_, col * pixel_side_length_);
+                                  vec2(col * pixel_side_length_, row * pixel_side_length_);
 
             vec2 pixel_bottom_right = pixel_top_left + vec2(pixel_side_length_, pixel_side_length_);
 
@@ -37,13 +37,28 @@ void Sketchpad::HandleBrush(const vec2& brush_screen_coords) {
 
     for (size_t row = 0; row < num_pixels_per_side_; ++row) {
         for (size_t col = 0; col < num_pixels_per_side_; ++col) {
-            vec2 pixel_center = {row + 0.5, col + 0.5};
+            vec2 pixel_center = {col + 0.5, row + 0.5};
 
             if (glm::distance(brush_sketchpad_coords, pixel_center) <= brush_radius_) {
                 shaded_pixels_[row][col] = true;
             }
         }
     }
+}
+
+std::ostream& operator<<(std::ostream& output, const Sketchpad& sketchpad) {
+    for (size_t row = 0; row < sketchpad.num_pixels_per_side_; ++row) {
+        for (size_t col = 0; col < sketchpad.num_pixels_per_side_; ++col) {
+            if (sketchpad.shaded_pixels_[row][col]) {
+                output << '#';
+            } else {
+                output << ' ';
+            }
+        }
+        output << std::endl;
+    }
+
+    return output;
 }
 
 }  // namespace visualizer
