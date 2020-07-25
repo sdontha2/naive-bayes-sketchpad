@@ -44,20 +44,15 @@ void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
 }
 
 void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
-    if (event.getCode() == ci::app::KeyEvent::KEY_RETURN) {
-        // This will print the current content of the sketchpad to the console.
-        // std::cout << sketchpad_ << std::endl;
+    switch (event.getCode()) {
+        case ci::app::KeyEvent::KEY_RETURN:
+            // ask your classifier to classify the image that's currently drawn on the sketchpad
+            // and update current_prediction_
+            break;
         
-        // std::stringstream inherits from both std::ostream AND std::istream
-        // (C++ supports multiple inheritance),
-        // so it can receive output from the sketchpad and feed that
-        // data as input to your Naive Bayes code!
-        
-        std::stringstream sketchpad_content;
-        sketchpad_content << sketchpad_;
-        // sketchpad_content >> **insert your naive bayes module here**;
-
-        // update current_prediction_
+        case ci::app::KeyEvent::KEY_DELETE:
+            sketchpad_.Clear();
+            break;
     }
 }
 
